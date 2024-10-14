@@ -1,25 +1,70 @@
 <!DOCTYPE html>
-
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Board</title>
+  <style>
+    /* Container for the grid */
+    .container {
+      display: grid;
+      grid-template-columns: repeat(40, 20px); /* 40 boxes per row */
+      grid-template-rows: repeat(20, 20px); /* 20 boxes per column */
+      gap: 2px;
+      width: 840px; /* 40 boxes * 20px + 39 gaps of 2px */
+      height: 420px; /* 20 boxes * 20px + 19 gaps of 2px */
+      margin: 50px auto;
+    }
+
+    /* Style for each box */
+    .square {
+      width: 20px;
+      height: 20px;
+      background-color: #e0e0e0; /* Default background color */
+      transition: background-color 1s ease; /* Smooth transition */
+    }
+  </style>
 </head>
-
 <body>
-	<!-- the entire body must be written by student -->
-	<div class="container">
-        <!-- Generate 800 boxes -->
-        <!-- You can use a loop or any other method to create the boxes dynamically -->
-        <!-- For demonstration purposes, I'll create a few boxes manually -->
-        <div class="square"></div>
-        <div class="square"></div>
-        <!-- ... Repeat for the remaining boxes ... -->
-    </div>
 
-    <script type="text/javascript" src="./script.js">
-</script>
+  <div class="container" id="colorBoard"></div>
+
+  <script>
+    // Function to generate random color
+    function getRandomColor() {
+      const letters = '0123456789ABCDEF';
+      let color = '#';
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+    // Get the container
+    const container = document.getElementById('colorBoard');
+
+    // Create 800 squares dynamically
+    for (let i = 0; i < 800; i++) {
+      const square = document.createElement('div');
+      square.classList.add('square');
+
+      // Add hover effect to change color
+      square.addEventListener('mouseover', () => {
+        const randomColor = getRandomColor();
+        square.style.backgroundColor = randomColor;
+      });
+
+      // Remove color after 1 second
+      square.addEventListener('mouseout', () => {
+        setTimeout(() => {
+          square.style.backgroundColor = '#e0e0e0'; // Reset to default color
+        }, 1000);
+      });
+
+      container.appendChild(square);
+    }
+  </script>
 
 </body>
-
 </html>
